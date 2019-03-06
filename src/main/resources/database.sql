@@ -37,3 +37,20 @@ CREATE TABLE `product` (
   `price` float(53) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+INSERT INTO `product` VALUES
+	(1,'22','1111111','50', 'Risi'),
+	(2,'33','2222222','50', 'Griki'),
+	(3,'44','3333333','50', 'Lasis'),
+	(4,'55','4444444','50', 'Cuka'),
+	(5,'44','55555555','50', 'Vista');
+
+
+CREATE TABLE `orderEntries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` varchar(45) DEFAULT NULL,
+  `total_price` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+  ADD FOREIGN KEY (order_id)
+  ADD FOREIGN KEY (customer_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

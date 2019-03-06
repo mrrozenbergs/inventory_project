@@ -9,6 +9,8 @@ public interface ClientService {
 	public List<Client> findAll();
 	
 	public Client findById(int Id);
+
+	public Client findByEmail(String email);
 	
 	public void save(Client client);
 	

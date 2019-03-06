@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        return productRepository.findAllByOrderByProductName();
+        return productRepository.findAllByOrderById();
     }
 
     @Override
@@ -34,7 +34,6 @@ public class ProductServiceImpl implements ProductService {
         if (result.isPresent()) {
             product = result.get();
         } else {
-            // we didn't find the Client
             throw new RuntimeException("Did not find Product id - " + Id);
         }
 
