@@ -13,6 +13,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
 
 	public List<Client> findAllByOrderById();
 
-	Optional<Client> findByEmail(@Param("email") String email);
-	
+	Optional<Client> findClientByEmail(String email);
+
+
 }

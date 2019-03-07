@@ -42,22 +42,20 @@ public class ClientServiceImpl implements ClientService {
         if (result.isPresent()) {
             client = result.get();
         } else {
-            // we didn't find the Client
             throw new RuntimeException("Did not find Client id - " + Id);
         }
 
         return client;
     }
     @Override
-    public Client findByEmail(String email) {
-        Optional<Client> result = clientRepository.findByEmail(email);
+    public Client findClientByEmail(String email) {
+        Optional<Client> result = clientRepository.findClientByEmail(email);
 
         Client client = null;
 
         if (result.isPresent()) {
             client = result.get();
         } else {
-            // we didn't find the Client
             throw new RuntimeException("Did not find Client email - " + email);
         }
 
@@ -67,8 +65,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void save(Client client) {
         client.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
-        Role userRole = roleRepository.findByRole("ADMIN");
-        client.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        Role clientRole = roleRepository.findByRole("ADMIN");
+        client.setRoles(new HashSet<>(Arrays.asList(clientRole)));
         clientRepository.save(client);
     }
 

@@ -35,6 +35,11 @@ public class Client implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "username", nullable = false, unique = true)
+    @Length(min = 5, message = "*Your username must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your name")
+    private String username;
+
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     @Column(name = "password")
@@ -44,18 +49,23 @@ public class Client implements Serializable {
     private List<Order> orders;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "client_role", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
 
     public Client() {
     }
 
-    public Client(int id, String companyName, String registrationNumber, String contacts, @Email(message = "*Please provide a valid Email") @NotEmpty(message = "*Please provide an email") String email, @Length(min = 5, message = "*Your password must have at least 5 characters") @NotEmpty(message = "*Please provide your password") String password, List<Order> orders, Set<Role> roles) {
+    public Client(int id, String companyName, String registrationNumber, String contacts, @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email") String email,@Length(min = 5, message = "*Your username must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your name") String username, @Length(min = 5, message = "*Your password must have at least 5 characters")
+                  @NotEmpty(message = "*Please provide your password") String password, List<Order> orders, Set<Role> roles) {
         this.id = id;
         this.companyName = companyName;
         this.registrationNumber = registrationNumber;
         this.contacts = contacts;
         this.email = email;
+        this.username = username;
         this.password = password;
         this.orders = orders;
         this.roles = roles;
@@ -144,6 +154,14 @@ public class Client implements Serializable {
         this.roles = roles;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -152,8 +170,10 @@ public class Client implements Serializable {
                 ", registrationNumber='" + registrationNumber + '\'' +
                 ", contacts='" + contacts + '\'' +
                 ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", orders=" + orders +
+                ", roles=" + roles +
                 '}';
     }
 }

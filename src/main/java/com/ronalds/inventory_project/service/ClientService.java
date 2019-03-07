@@ -10,7 +10,7 @@ public interface ClientService {
 	
 	public Client findById(int Id);
 
-	public Client findByEmail(String email);
+	public Client findClientByEmail(String email);
 	
 	public void save(Client client);
 	
