@@ -17,15 +17,10 @@ import java.util.Optional;
 public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
-    private RoleRepository roleRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.roleRepository = roleRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-
     }
 
     @Override
@@ -47,20 +42,6 @@ public class ClientServiceImpl implements ClientService {
 
         return client;
     }
-    @Override
-    public Client findClientByEmail(String email) {
-        Optional<Client> result = clientRepository.findClientByEmail(email);
-
-        Client client = null;
-
-        if (result.isPresent()) {
-            client = result.get();
-        } else {
-            throw new RuntimeException("Did not find Client email - " + email);
-        }
-
-        return client;
-    }
 
     @Override
     public void save(Client client) {
@@ -72,20 +53,6 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.deleteById(Id);
     }
 
-    @Override
-    public Client findByUsername(String username) {
-        Optional<Client> result = clientRepository.findClientByEmail(username);
-
-        Client client = null;
-
-        if (result.isPresent()) {
-            client = result.get();
-        } else {
-            throw new RuntimeException("Did not find Client with username - " + username);
-        }
-
-        return client;
-    }
 
 }
 

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+	<h3>Add User</h3>
+	<hr>
+
+	<p class="h4 mb-4">Save User</p>
+
+	<form action="#" th:action="@{/user/save}"
+		  th:object="${user}" method="POST">
+
+		<!-- Add hidden form field to handle update -->
+		<input type="hidden" th:field="*{id}" />
+
+		<!--<select class="form-control mb-4 col-4" th:field="*{client}">-->
+		<!--<option value="0">select client</option>-->
+		<!--<option th:each="client : ${client}" th:value="${client.id}" th:text="${client.companyName}"></option>-->
+		<!--</select>-->
+
+		<input type="hidden" th:field="*{client}" th:value="${client}"/>
+
+		<input type="text" th:field="*{email}"
+			   class="form-control mb-4 col-4" placeholder="email">
+
+		<input type="text" th:field="*{username}"
+			   class="form-control mb-4 col-4" placeholder="username">
+
+		<input type="text" th:field="*{name}"
+			   class="form-control mb-4 col-4" placeholder="name">
+
+		<input type="text" th:field="*{lastName}"
+			   class="form-control mb-4 col-4" placeholder="last name">
+
+		<input type="password" th:field="*{password}"
+			   class="form-control mb-4 col-4" placeholder="password">
+
+		<button type="submit" class="btn btn-info col-2">Save</button>
+
+	</form>
+
+	<hr>
+	<a th:href="@{/orders/list}">Back</a>
+
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+	<h3>My Orders</h3>
+	<hr>
+
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th> ID </th>
+				<th>Date</th>
+				<th>Order details</th>
+				<th>Total price</th>
+
+
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="tempOrder : ${orders}">
+
+				<td th:text="${tempOrder.id}" />
+				<td th:text="${tempOrder.date}" />
+				<td th:text="${tempOrder.orderEntries}" />
+				<td th:text="${tempOrder.totalPrice}" />
+
+			</tr>
+		</tbody>		
+	</table>
+	
+</div>
+	
+</body>
+</html>
+
+
+

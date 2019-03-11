@@ -1,18 +1,20 @@
 package com.ronalds.inventory_project.service;
 
 import com.ronalds.inventory_project.controller.constants.ControllerConstants;
-import com.ronalds.inventory_project.dao.ClientRepository;
 import com.ronalds.inventory_project.dao.OrderRepository;
-import com.ronalds.inventory_project.entity.Client;
 import com.ronalds.inventory_project.entity.Order;
 import com.ronalds.inventory_project.entity.OrderDetails;
+import com.ronalds.inventory_project.entity.User;
 import com.ronalds.inventory_project.service.model.Cart;
 import com.ronalds.inventory_project.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,11 +27,16 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderRepository orderRepository;
     private ClientService clientService;
+    private UserService userService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService) {
+    private HttpSession session;
+
+    @Autowired
+    public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService, UserService userService) {
         this.orderRepository = orderRepository;
         this.clientService = clientService;
+        this.userService = userService;
     }
 
     @Override
@@ -54,13 +61,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order saveOrder(CartService cartService, HttpServletRequest request) {
+    public Order saveOrder(CartService cartService, HttpServletRequest request, Principal principal) {
         Order order = new Order();
         order.setDate(new Date());
         Cart cart = SessionUtils.getSessionVariables(request,
                 ControllerConstants.CART);
         order.setTotalPrice(cartService.getTotal(cart));
-        order.setCustomer(clientService.findById(1));
+        User user = userService.findByUsername(principal.getName()).get();
+        order.setClient(user.getClient());
         List<OrderDetails> orderItemsList = new ArrayList<>();
         for (OrderDetails orderItem : cartService.getOrderItemsList(cart)) {
             orderItemsList.add(orderItem);
@@ -72,5 +80,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void removeOrder(int Id) {
         orderRepository.deleteById(Id);
+    }
+
+    @Override
+    public List<Order> findOrdersByClient(String client) {
+        return orderRepository.findAll(new Sort("client"));
+
     }
 }

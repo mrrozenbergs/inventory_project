@@ -2,17 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-	<title>Save Client</title>
+	<div th:replace="/fragments/admin-header :: header"/>
 </head>
 
 <body>
+
+<div th:replace="/fragments/admin-header :: navbar"/>
 
 	<div class="container">
 	
@@ -35,15 +30,6 @@
 
 			<input type="text" th:field="*{contacts}"
 					class="form-control mb-4 col-4" placeholder="Contacts">
-
-			<input type="text" th:field="*{username}"
-				   class="form-control mb-4 col-4" placeholder="Username">
-
-			<input type="text" th:field="*{email}"
-				   class="form-control mb-4 col-4" placeholder="E-mail">
-
-			<input type="text" th:field="*{password}"
-				   class="form-control mb-4 col-4" placeholder="Password">
 				
 			<button type="submit" class="btn btn-info col-2">Save</button>
 						

@@ -44,9 +44,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        String[] staticResources  =  {
+                "/css/**",
+                "/img/**",
+                "/fonts/**",
+                "/scripts/**",
+        };
+
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/home", "/", "/user/**", "/error/**").permitAll()
+                .antMatchers(staticResources).permitAll()
+                .antMatchers("/home", "/", "/user/**", "/error/**", "/login").permitAll()
                 .antMatchers("/products/**", "/orders/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
                 .antMatchers("/clients/**").access("hasAnyRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()

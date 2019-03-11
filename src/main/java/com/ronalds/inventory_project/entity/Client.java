@@ -19,7 +19,7 @@ public class Client{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "client_id")
     private int id;
 
     @Column(name = "company_name")
@@ -31,45 +31,22 @@ public class Client{
     @Column(name = "contacts")
     private String contacts;
 
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "username", nullable = false, unique = true)
-    @Length(min = 5, message = "*Your username must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your name")
-    private String username;
-
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
-    @Column(name = "password")
-    private String password;
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "client_role", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
+    private List<User> users;
 
     public Client() {
     }
 
-    public Client(int id, String companyName, String registrationNumber, String contacts, @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email") String email, @Length(min = 5, message = "*Your username must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your name") String username, @Length(min = 5, message = "*Your password must have at least 5 characters")
-                  @NotEmpty(message = "*Please provide your password") String password, List<Order> orders, Set<Role> roles) {
+    public Client(int id, String companyName, String registrationNumber, String contacts, List<Order> orders, List<User> users) {
         this.id = id;
         this.companyName = companyName;
         this.registrationNumber = registrationNumber;
         this.contacts = contacts;
-        this.email = email;
-        this.username = username;
-        this.password = password;
         this.orders = orders;
-//        this.roles = roles;
+        this.users = users;
     }
 
     public Client(int id, String companyName, String registrationNumber, String contacts, List<Order> orders) {
@@ -84,8 +61,6 @@ public class Client{
         this.companyName = companyName;
         this.registrationNumber = registrationNumber;
         this.contacts = contacts;
-        this.email = email;
-        this.password = password;
     }
 
     public Client(String companyName, String registrationNumber, String contacts) {
@@ -130,38 +105,12 @@ public class Client{
         this.orders = orders;
     }
 
-
-    public String getEmail() {
-        return email;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-//    public Set<Role> getRoles() {
-////        return roles;
-////    }
-////
-////    public void setRoles(Set<Role> roles) {
-////        this.roles = roles;
-////    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override
@@ -171,9 +120,6 @@ public class Client{
                 ", companyName='" + companyName + '\'' +
                 ", registrationNumber='" + registrationNumber + '\'' +
                 ", contacts='" + contacts + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", orders=" + orders +
                 '}';
     }

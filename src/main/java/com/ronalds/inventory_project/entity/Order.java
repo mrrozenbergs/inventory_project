@@ -1,7 +1,6 @@
 package com.ronalds.inventory_project.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "order_id")
     private int id;
 
     @Column (name = "date")
@@ -23,23 +22,24 @@ public class Order {
     @OneToMany(cascade=CascadeType.ALL)
     private List<OrderDetails> orderEntries;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Client customer;
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinTable(name = "client_orders", joinColumns = @JoinColumn(name = "orders_id"), inverseJoinColumns = @JoinColumn(name = "clients_id"))
+    private Client client;
 
     public Order() {
     }
 
-    public Order(List<OrderDetails> orderEntries, Client customer) {
+    public Order(List<OrderDetails> orderEntries, Client client) {
         this.orderEntries = orderEntries;
-        this.customer = customer;
+        this.client = client;
     }
 
-    public Order(int id, Date date, List<OrderDetails> orderEntries, double totalPrice, Client customer) {
+    public Order(int id, Date date, List<OrderDetails> orderEntries, double totalPrice, Client client) {
         this.id = id;
         this.date = date;
         this.orderEntries = orderEntries;
         this.totalPrice = totalPrice;
-        this.customer = customer;
+        this.client = client;
     }
 
     public int getId() {
@@ -62,12 +62,12 @@ public class Order {
         this.orderEntries = orderEntries;
     }
 
-    public Client getCustomer() {
-        return customer;
+    public Client getClient() {
+        return client;
     }
 
-    public void setCustomer(Client customer) {
-        this.customer = customer;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public double getTotalPrice() {

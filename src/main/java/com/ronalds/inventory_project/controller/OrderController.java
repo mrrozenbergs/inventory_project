@@ -1,21 +1,23 @@
 package com.ronalds.inventory_project.controller;
 
-import com.ronalds.inventory_project.entity.Client;
-import com.ronalds.inventory_project.entity.Order;
-import com.ronalds.inventory_project.entity.OrderDetails;
-import com.ronalds.inventory_project.entity.Product;
+import com.ronalds.inventory_project.entity.*;
 import com.ronalds.inventory_project.service.*;
 import com.sun.rowset.internal.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/orders")
@@ -26,24 +28,25 @@ public class OrderController {
 
     private ClientService clientService;
 
+    private UserService userService;
+
     private OrderService orderService;
 
-    private OrderDetailService orderDetailService;
 
     @Autowired
     private CartService cartService;
 
 
-    public OrderController(ProductService productService, ClientService clientService, OrderService orderService, CartService cartService) {
+    public OrderController(ProductService productService, ClientService clientService, OrderService orderService, CartService cartService, UserService userService) {
         this.productService = productService;
         this.clientService = clientService;
         this.orderService = orderService;
         this.cartService = cartService;
+        this.userService = userService;
     }
 
-
     @GetMapping("/list")
-    public String listClients(Model model) {
+    public String listOfOrders(Model model) {
 
         List<Product> products = productService.findAll();
 
@@ -51,6 +54,15 @@ public class OrderController {
 
         return "/products/list-products";
     }
+
+    @GetMapping("/orderlist")
+    public String ordersForClient(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName()).get();
+        List<Order> clientOrders = user.getClient().getOrders();
+        model.addAttribute("orders", clientOrders);
+        return "/orders/list-orders-client";
+    }
+
 
     @GetMapping("/add_order")
     public String addNewOrder(Model model) {
@@ -65,20 +77,11 @@ public class OrderController {
         return "/orders/order-form";
     }
 
-    @PostMapping("/save_order_detail")
-    public String saveOrderDetail(@ModelAttribute("order_detail") OrderDetails orderDetails,@ModelAttribute("order") Order order) {
-
-        orderDetails.setOrder(order);
-//        orderDetailsList.add(orderDetails);
-//        orderDetailService.saveOrderEntry(orderDetails);
-
-        return "redirect:/orders/add_order";
-    }
 
     @PostMapping("/create")
-    public String saveOrder(Model model, CartService cartService, HttpServletRequest request) {
+    public String saveOrder(Model model, CartService cartService, HttpServletRequest request, Principal principal) {
 
-       orderService.saveOrder(cartService, request);
+        orderService.saveOrder(cartService, request, principal);
 
         return "redirect:/orders/add_order";
     }
@@ -91,14 +94,5 @@ public class OrderController {
 
         return "redirect:/orders/list";
     }
-
-    @PostMapping("/delete_order_detail")
-    public String deleteOrderDetail(@RequestParam("orderDetailId") int Id) {
-
-        orderDetailService.removeOrderDetails(Id);
-
-        return "redirect:/orders/list";
-    }
-
 
 }

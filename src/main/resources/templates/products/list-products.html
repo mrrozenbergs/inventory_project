@@ -1,24 +1,19 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<div th:replace="/fragments/header :: header"/>
+	<div th:replace="/fragments/admin-header :: header"/>
 </head>
 
 <body>
 
-<div th:replace="/fragments/header :: navbar"/>
+<div th:replace="/fragments/admin-header :: navbar"/>
 
 <div class="container">
 
 	<h3>Product Directory</h3>
 	<hr>
-	<!-- Add a button -->
-	<a th:href="@{/products/showFormForAdd}"
-		class="btn btn-primary btn-sm mb-3">
-		Add Product
-	</a>
+
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
@@ -74,7 +69,7 @@
 		</tbody>		
 	</table>
 	
-</div>d
+</div>
 	
 </body>
 </html>

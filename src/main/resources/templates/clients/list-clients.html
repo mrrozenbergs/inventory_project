@@ -3,37 +3,17 @@
 
 
 <head>
-    <!--&lt;!&ndash; Required meta tags &ndash;&gt;-->
-    <!--<meta charset="utf-8">-->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-
-    <!--&lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">-->
-
-    <div th:replace="/fragments/header :: header"/>
-
+    <div th:replace="/fragments/admin-header :: header"/>
 </head>
 
 <body>
 
-<div th:replace="/fragments/header :: navbar"/>
+<div th:replace="/fragments/admin-header :: navbar"/>
 
 <div class="container">
 
     <h3>Client Directory</h3>
     <hr>
-
-    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
-
-    <!-- Add a button -->
-    <a th:href="@{/clients/showFormForAdd}"
-       class="btn btn-primary btn-sm mb-3">
-        Add Client
-    </a>
-
 
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -42,6 +22,7 @@
             <th>Company Name</th>
             <th>Registration number</th>
             <th>Contacts</th>
+            <th>Users</th>
             <th></th>
         </tr>
         </thead>
@@ -54,6 +35,31 @@
             <td th:text="${tempClient.registrationNumber}"/>
             <td th:text="${tempClient.contacts}"/>
 
+            <td>
+                <div class="row">
+
+                    <div class="col-small">
+                        <form action="#" th:action="@{/user/addUser}" method="POST">
+                            <input type="hidden" name="client-id" th:value="${tempClient.id}"/>
+                            <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Add User</button>
+                        </form>
+                </div>
+
+                    <div class="col-small">
+                        <form action="#" th:action="@{/user/list}" method="POST">
+
+                            <input type="hidden" name="client-id" th:value="${tempClient.id}"/>
+                            <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">
+                                User List
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </td>
             <td>
                 <div class="row">
 

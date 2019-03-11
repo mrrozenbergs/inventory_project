@@ -13,8 +13,8 @@ public class OrderDetails {
 
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_detail_id", nullable = false)
     private int id;
 
     @Column(name = "quantity")
@@ -22,10 +22,11 @@ public class OrderDetails {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     public OrderDetails() {
@@ -89,5 +90,8 @@ public class OrderDetails {
 
     }
 
-
+    @Override
+    public String toString() {
+        return  "id=" + id + ", product=" + product.getProductName() + ", quantity=" + quantity + "\r\n";
+    }
 }

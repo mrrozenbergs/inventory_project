@@ -12,8 +12,4 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
 	public List<Client> findAllByOrderById();
-
-	Optional<Client> findClientByEmail(String email);
-
-
 }

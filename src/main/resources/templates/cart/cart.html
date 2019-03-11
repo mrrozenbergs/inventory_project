@@ -2,28 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-    <!--<title>Product Directory</title>-->
-    head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
 
 <body>
 
+<div th:replace="/fragments/header :: navbar"/>
+
 <div class="container">
 
-    <h3>Product Directory</h3>
-    <hr>
-    <!-- Add a button -->
-    <a th:href="@{/products/showFormForAdd}"
-       class="btn btn-primary btn-sm mb-3">
-        Add Product
-    </a>
+    <h3>Cart</h3>
+
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -51,7 +40,6 @@
                                class="form-control mb-4 col-4" placeholder="quantity">
                         <input type="hidden" name="productId" th:value="${tempProduct.product.id}" />
                         <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
-
                     </form>
                 </div>
 
@@ -62,25 +50,25 @@
                                     onclick="if (!(confirm('Are you sure you want to delete this product?'))) return false">
                                 Delete
                             </button>
-
                         </form>
                     </div>
                 </div>
             </td>
-            <form action="#" th:action="@{/orders/create}" method="POST">
-                <!--<input type="hidden" name="productId" th:value="${tempProduct.product.id}"/>-->
-                <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="if (!(confirm('Everything in order is correct?'))) return false">
-                    Create Order
-                </button>
-
-            </form>
         </tr>
         </tbody>
     </table>
 
 </div>
 
+<div class="container">
+<form action="#" th:action="@{/orders/create}" method="POST">
+    <!--<input type="hidden" name="productId" th:value="${tempProduct.product.id}"/>-->
+    <button type="submit" class="btn btn-danger btn-sm"
+            onclick="if (!(confirm('Everything in order is correct?'))) return false">
+        Create Order
+    </button>
+</form>
+</div>
 </body>
 </html>
 
