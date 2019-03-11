@@ -29,4 +29,9 @@ public class DefaultController {
         return "/error/403";
     }
 
+    @GetMapping("/error")
+    public String error() {
+        return "/error/403";
+    }
+
 }

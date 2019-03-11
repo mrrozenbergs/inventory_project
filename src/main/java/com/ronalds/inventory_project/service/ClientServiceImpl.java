@@ -64,15 +64,27 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void save(Client client) {
-        client.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
-        Role clientRole = roleRepository.findByRole("ADMIN");
-        client.setRoles(new HashSet<>(Arrays.asList(clientRole)));
         clientRepository.save(client);
     }
 
     @Override
     public void deleteById(int Id) {
         clientRepository.deleteById(Id);
+    }
+
+    @Override
+    public Client findByUsername(String username) {
+        Optional<Client> result = clientRepository.findClientByEmail(username);
+
+        Client client = null;
+
+        if (result.isPresent()) {
+            client = result.get();
+        } else {
+            throw new RuntimeException("Did not find Client with username - " + username);
+        }
+
+        return client;
     }
 
 }

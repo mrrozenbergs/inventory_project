@@ -4,31 +4,25 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name="role")
+@Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    @Column(name = "role")
+    @Column(name = "role_id")
+    private Integer id;
+
+    @Column(name = "role", unique = true)
     private String role;
+
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
-    private Collection<Client> clients;
+    private Collection<User> users;
 
-    public Role() {
-    }
-
-    public Role(int id, String role) {
-        this.id = id;
-        this.role = role;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,11 +34,11 @@ public class Role {
         this.role = role;
     }
 
-    public Collection<Client> getClients() {
-        return clients;
+    public Collection<User> getUsers() {
+        return users;
     }
 
-    public void setClients(Collection<Client> clients) {
-        this.clients = clients;
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }

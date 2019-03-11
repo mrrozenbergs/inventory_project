@@ -15,5 +15,6 @@ public interface ClientService {
 	public void save(Client client);
 	
 	public void deleteById(int Id);
-	
+
+	public Client findByUsername(String username);
 }

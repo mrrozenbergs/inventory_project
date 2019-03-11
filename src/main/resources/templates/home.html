@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
     <head>
@@ -24,14 +24,11 @@
 
 <h2>Welcome</h2>
 <p>Spring Security Thymeleaf tutorial</p>
-<div sec:authorize="hasAuthority('SITE_ADMIN')">Text visible to user.</div>
-<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-<div sec:authorize="isAuthenticated()">Text visible only to
-    authenticated users.</div>
-Authenticated username:
-<div sec:authentication="name"></div>
-Authenticated user roles:
-<div sec:authentication="principal.authorities"></div>
+<th:block sec:authorize="hasRole('ADMIN')">admin</th:block>
+
+<div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+    <h2>This will only be displayed if authenticated user has role ROLE_SUPERUSER.</h2>
+</div>
 
 </body>
 </html>

@@ -1,20 +1,21 @@
 package com.ronalds.inventory_project.entity;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "client")
-public class Client implements Serializable {
+public class Client{
 
-    private static final long serialVersionUID = -3075727814481272627L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,16 +49,16 @@ public class Client implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "client_role", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "client_role", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
 
 
     public Client() {
     }
 
     public Client(int id, String companyName, String registrationNumber, String contacts, @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email") String email,@Length(min = 5, message = "*Your username must have at least 5 characters")
+    @NotEmpty(message = "*Please provide an email") String email, @Length(min = 5, message = "*Your username must have at least 5 characters")
     @NotEmpty(message = "*Please provide your name") String username, @Length(min = 5, message = "*Your password must have at least 5 characters")
                   @NotEmpty(message = "*Please provide your password") String password, List<Order> orders, Set<Role> roles) {
         this.id = id;
@@ -68,7 +69,7 @@ public class Client implements Serializable {
         this.username = username;
         this.password = password;
         this.orders = orders;
-        this.roles = roles;
+//        this.roles = roles;
     }
 
     public Client(int id, String companyName, String registrationNumber, String contacts, List<Order> orders) {
@@ -138,6 +139,7 @@ public class Client implements Serializable {
         this.email = email;
     }
 
+
     public String getPassword() {
         return password;
     }
@@ -146,13 +148,13 @@ public class Client implements Serializable {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+//    public Set<Role> getRoles() {
+////        return roles;
+////    }
+////
+////    public void setRoles(Set<Role> roles) {
+////        this.roles = roles;
+////    }
 
     public String getUsername() {
         return username;
@@ -173,7 +175,6 @@ public class Client implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", orders=" + orders +
-                ", roles=" + roles +
                 '}';
     }
 }

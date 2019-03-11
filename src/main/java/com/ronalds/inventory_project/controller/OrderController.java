@@ -65,14 +65,6 @@ public class OrderController {
         return "/orders/order-form";
     }
 
-//    @GetMapping("/add_list")
-//    public String addTolist(@ModelAttribute("order_detail") OrderDetails orderDetails) {
-//
-////        orderDetailsList.add(orderDetails);
-//
-//        return "/orders/order-form";
-//    }
-
     @PostMapping("/save_order_detail")
     public String saveOrderDetail(@ModelAttribute("order_detail") OrderDetails orderDetails,@ModelAttribute("order") Order order) {
 

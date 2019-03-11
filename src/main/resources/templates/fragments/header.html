@@ -4,23 +4,19 @@
 
 <head>
 
-    <!-- this is header -->
     <div th:fragment="header">
         <title th:attr="data-custom=#{thymeleaf.app.title}">Inventory System</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"-->
-              <!--integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"-->
-              <!--crossorigin="anonymous">-->
 
-        <!--&lt;!&ndash;<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">&ndash;&gt;-->
-
-
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
         <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -29,10 +25,11 @@
 </head>
 
 <body>
-<div th:fragment="navbar" sec:authorize="isAuthenticated()">
+<div th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="@{/home}">Inventory System</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" th:href="@{/}">Inventory System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -41,14 +38,17 @@
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/products/list}">Products <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active" sec:authorize="hasAuthority('SITE_ADMIN')">
-                <a class="nav-link" th:href="@{/clients/list}">Clients</a>
-            </li>
-                <li class="nav-item active" authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/orders/list}">My Orders</a>
+                </li>
+                <li class="nav-item active" th:if="${#request.isUserInRole('ADMIN')}">
                     <a class="nav-link" th:href="@{/orders/list}">Orders</a>
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item active" th:if="${#request.isUserInRole('ADMIN')}">
+                    <a class="nav-link" th:href="@{/cart/info}">ADMIN PAGE</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/cart/info}">Cart</a>
                 </li>
