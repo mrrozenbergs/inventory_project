@@ -1,15 +1,10 @@
 package com.ronalds.inventory_project.service;
 
 import com.ronalds.inventory_project.dao.ClientRepository;
-import com.ronalds.inventory_project.dao.RoleRepository;
 import com.ronalds.inventory_project.entity.Client;
-import com.ronalds.inventory_project.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 

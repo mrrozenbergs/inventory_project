@@ -1,56 +1,50 @@
-CREATE DATABASE  IF NOT EXISTS `inventory_directory`;
-USE `inventory_directory`;
+-- password in plaintext: "password"
+INSERT INTO USER (user_id, password, email, username, name, last_name, active)
+VALUES
+  (1, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'user@mail.com', 'user', 'Name', 'Surname',
+   1);
+-- password in plaintext: "password"
+INSERT INTO USER (user_id, password, email, username, name, last_name, active)
+VALUES
+  (2, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'xxx@gmail.com', 'xxx', 'XXX', 'XXX', 1);
+-- password in plaintext: "password"
+INSERT INTO USER (user_id, password, email, username, name, last_name, active)
+VALUES (3, '$2a$06$OAPObzhRdRXBCbk7Hj/ot.jY3zPwR8n7/mfLtKIgTzdJa4.6TwsIm', 'name@gmail.com', 'namesurname', 'Name',
+        'Surname', 1);
 
---
--- Table structure for table `employee`
---
+INSERT INTO ROLE (role_id, role)
+VALUES (1, 'ROLE_ADMIN');
+INSERT INTO ROLE (role_id, role)
+VALUES (2, 'ROLE_USER');
 
-DROP TABLE IF EXISTS `client`;
+INSERT INTO USER_ROLE (user_id, role_id)
+VALUES (1, 1);
+INSERT INTO USER_ROLE (user_id, role_id)
+VALUES (1, 2);
+INSERT INTO USER_ROLE (user_id, role_id)
+VALUES (2, 2);
+INSERT INTO USER_ROLE (user_id, role_id)
+VALUES (3, 2);
 
-CREATE TABLE `client` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_name` varchar(45) DEFAULT NULL,
-  `reg_no` varchar(45) DEFAULT NULL,
-  `contacts` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+INSERT INTO client (client_id, company_name, contacts, reg_no)
+VALUES ('1', 'IKEA', '6700000', '12345678');
+INSERT INTO client (client_id, company_name, contacts, reg_no)
+VALUES ('2', 'Rimi', '6711111', '22233311');
 
---
--- Data for table `employee`
---
+INSERT INTO CLIENT_USERS (client_id, user_id)
+VALUES (1, 1);
+INSERT INTO USER_ROLE (client_id, user_id)
+VALUES (1, 2);
+INSERT INTO USER_ROLE (client_id, user_id)
+VALUES (2, 3);
 
-INSERT INTO `client` VALUES
-	(1,'Maxima','1111111','info@maxima.lv'),
-	(2,'Rimi','2222222','info@rimi.lv'),
-	(3,'Mego','3333333','info@mego.lv'),
-	(4,'Lats','4444444','info@lats.lv'),
-	(5,'TOP','55555555','info@top.lv');
-
-
-    DROP TABLE IF EXISTS `product`;
-
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_name` varchar(45) DEFAULT NULL,
-  `ean_number` varchar(45) DEFAULT NULL,
-  `in_stock` int(11) DEFAULT NULL,
-  `price` float(53) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-INSERT INTO `product` VALUES
-	(1,'22','1111111','50', 'Risi'),
-	(2,'33','2222222','50', 'Griki'),
-	(3,'44','3333333','50', 'Lasis'),
-	(4,'55','4444444','50', 'Cuka'),
-	(5,'44','55555555','50', 'Vista');
-
-
-CREATE TABLE `orderEntries` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` varchar(45) DEFAULT NULL,
-  `total_price` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
-  ADD FOREIGN KEY (order_id)
-  ADD FOREIGN KEY (customer_id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+INSERT INTO PRODUCT (product_id, eannumber, instock, price, productname)
+VALUES ('1', '123455', '100', '2.20', 'Soda');
+INSERT INTO PRODUCT (product_id, eannumber, instock, price, productname)
+VALUES ('2', '222222', '100', '4.50', 'Burger');
+INSERT INTO PRODUCT (product_id, eannumber, instock, price, productname)
+VALUES ('3', '333333', '100', '6.35', 'Salad');
+INSERT INTO PRODUCT (product_id, eannumber, instock, price, productname)
+VALUES ('4', '444444', '100', '8.70', 'Fish');
+INSERT INTO PRODUCT (product_id, eannumber, instock, price, productname)
+VALUES ('5', '555555', '100', '1.99', 'Fries');

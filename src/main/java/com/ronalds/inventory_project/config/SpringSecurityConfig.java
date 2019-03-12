@@ -1,6 +1,5 @@
 package com.ronalds.inventory_project.config;
 
-import com.ronalds.inventory_project.error.MyAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

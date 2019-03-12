@@ -64,7 +64,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         if (isUser) {
             return "/orders/add_order";
         } else if (isAdmin) {
-            return "/clients/list";
+            return "/orders/list";
         } else {
             throw new IllegalStateException();
         }

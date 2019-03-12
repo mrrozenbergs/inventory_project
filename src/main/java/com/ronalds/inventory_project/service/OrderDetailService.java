@@ -14,5 +14,4 @@ public interface OrderDetailService {
     public OrderDetails saveOrderEntry(OrderDetails orderDetails);
 
     public void removeOrderDetails(int Id);
-
 }

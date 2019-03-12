@@ -24,6 +24,11 @@ public class DefaultController {
         return "/error/403";
     }
 
+    @GetMapping("/notEnoughProducts")
+    public String notEnoughProducts() {
+        return "/not-enough-products";
+    }
+
     @GetMapping("/error")
     public String error() {
         return "/error/403";

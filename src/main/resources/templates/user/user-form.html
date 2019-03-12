@@ -19,7 +19,6 @@
 	<form action="#" th:action="@{/user/save}"
 		  th:object="${user}" method="POST">
 
-		<!-- Add hidden form field to handle update -->
 		<input type="hidden" th:field="*{id}" />
 
 		<!--<select class="form-control mb-4 col-4" th:field="*{client}">-->

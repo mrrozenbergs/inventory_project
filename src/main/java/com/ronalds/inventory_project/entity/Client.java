@@ -1,15 +1,9 @@
 package com.ronalds.inventory_project.entity;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Entity
@@ -22,10 +16,10 @@ public class Client{
     @Column(name = "client_id")
     private int id;
 
-    @Column(name = "company_name")
+    @Column(name = "company_name", nullable = false, unique = true)
     private String companyName;
 
-    @Column(name = "reg_no")
+    @Column(name = "reg_no", nullable = false, unique = true)
     private String registrationNumber;
 
     @Column(name = "contacts")

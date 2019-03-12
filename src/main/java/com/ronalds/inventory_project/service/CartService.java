@@ -1,7 +1,6 @@
 package com.ronalds.inventory_project.service;
 
 import com.ronalds.inventory_project.controller.constants.ControllerConstants;
-import com.ronalds.inventory_project.entity.Client;
 import com.ronalds.inventory_project.entity.OrderDetails;
 import com.ronalds.inventory_project.entity.Product;
 import com.ronalds.inventory_project.service.model.Cart;
@@ -19,7 +18,6 @@ public class CartService {
     @Autowired
     private HttpSession session;
 
-    // Add Products to Shopping Cart
     public synchronized void addProduct(Cart cart, Integer productId) {
         if (cart.contains(productId)) {
             cart.incrementProductQuantity(productId);
@@ -44,26 +42,6 @@ public class CartService {
 
     public synchronized int getProductsCount(Cart cart) {
         return cart.getCartSize();
-    }
-
-    public synchronized boolean containsProduct(Cart cart,
-                                                Integer productId) {
-        return cart.containsKey(productId);
-    }
-
-    public synchronized void incrementProductQuantity(Cart cart,
-                                                      Integer productId) {
-        OrderDetails orderDetails = cart.getProduct(productId);
-        orderDetails.incrementQuantity();
-    }
-
-    public synchronized void decrementProductQuantity(Cart cart,
-                                                      Integer productId) {
-        cart.decrementProductQuantity(productId);
-    }
-
-    public synchronized int getNumberOfItems(Cart cart) {
-        return cart.getNumberOfItems();
     }
 
     public synchronized void removeProduct(Cart cart, Integer productId) {
@@ -95,18 +73,5 @@ public class CartService {
             return new Cart();
     }
 
-    public Cart getShoppingCartByCustomer(Client client) {
-        return null;
-    }
-
-    public void saveShoppingCartDetails(Cart customerCartData,
-                                        Client client) {
-        
-
-    }
-
-    public void saveCartInDatabase(Cart cart, Client client) {
-
-    }
 
 }

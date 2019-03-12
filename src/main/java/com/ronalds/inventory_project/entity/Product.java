@@ -14,16 +14,16 @@ public class Product implements Serializable {
     @Column(name = "product_id")
     private int id;
 
-    @Column(name = "productname")
+    @Column(name = "productname", nullable = false, unique = true)
     private String productName;
 
     @Column(name = "eannumber")
     private String eanNumber;
 
-    @Column(name = "instock")
+    @Column(name = "instock", nullable = false)
     private int inStock;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
 
     public Product() {

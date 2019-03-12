@@ -18,8 +18,4 @@ public class SessionUtils {
 			String value) {
 		request.getSession().setAttribute(value, obj);
 	}
-	
-	public static void removeSessionVariables(String value, HttpServletRequest request){
-		request.getSession().removeAttribute(value);
-	}
 }

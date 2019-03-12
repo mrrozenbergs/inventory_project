@@ -5,10 +5,10 @@ import com.ronalds.inventory_project.dao.OrderRepository;
 import com.ronalds.inventory_project.entity.Order;
 import com.ronalds.inventory_project.entity.OrderDetails;
 import com.ronalds.inventory_project.entity.User;
+import com.ronalds.inventory_project.error.NotEnoughProductsInStockException;
 import com.ronalds.inventory_project.service.model.Cart;
 import com.ronalds.inventory_project.util.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,17 +26,17 @@ public class OrderServiceImpl implements OrderService {
 
 
     private OrderRepository orderRepository;
-    private ClientService clientService;
     private UserService userService;
+    private ProductService productService;
 
     @Autowired
     private HttpSession session;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ClientService clientService, UserService userService) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserService userService, ProductService productService) {
         this.orderRepository = orderRepository;
-        this.clientService = clientService;
         this.userService = userService;
+        this.productService = productService;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order saveOrder(CartService cartService, HttpServletRequest request, Principal principal) {
+    public Order saveOrder(CartService cartService, HttpServletRequest request, Principal principal) throws NotEnoughProductsInStockException {
         Order order = new Order();
         order.setDate(new Date());
         Cart cart = SessionUtils.getSessionVariables(request,
@@ -71,6 +71,11 @@ public class OrderServiceImpl implements OrderService {
         order.setClient(user.getClient());
         List<OrderDetails> orderItemsList = new ArrayList<>();
         for (OrderDetails orderItem : cartService.getOrderItemsList(cart)) {
+            if (orderItem.getQuantity() > productService.findProductById(orderItem.getProduct().getId()).getInStock()){
+                throw new NotEnoughProductsInStockException(productService.findProductById(orderItem.getProduct().getId()));
+            } else if (orderItem.getQuantity() < 0){
+                throw new NotEnoughProductsInStockException(productService.findProductById(orderItem.getProduct().getId()));
+            }
             orderItemsList.add(orderItem);
         }
         order.setOrderEntries(orderItemsList);
@@ -82,9 +87,4 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(Id);
     }
 
-    @Override
-    public List<Order> findOrdersByClient(String client) {
-        return orderRepository.findAll(new Sort("client"));
-
-    }
 }

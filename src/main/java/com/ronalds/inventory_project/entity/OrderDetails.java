@@ -1,9 +1,5 @@
 package com.ronalds.inventory_project.entity;
 
-
-import com.ronalds.inventory_project.entity.Order;
-import com.ronalds.inventory_project.entity.Product;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 

@@ -22,7 +22,7 @@
             <th>Company Name</th>
             <th>Registration number</th>
             <th>Contacts</th>
-            <th>Users</th>
+            <th>Manage Users</th>
             <th></th>
         </tr>
         </thead>
@@ -64,7 +64,6 @@
                 <div class="row">
 
                     <div class="col-small">
-                        <!-- Add "update" button/link -->
                         <form action="#" th:action="@{/clients/showFormForUpdate}" method="POST">
 
                             <input type="hidden" name="clientId" th:value="${tempClient.id}"/>
@@ -74,7 +73,6 @@
                     </div>
 
                     <div class="col-small">
-                        <!-- Add "delete" button/link -->
                         <form action="#" th:action="@{/clients/delete}" method="POST">
 
                             <input type="hidden" name="clientId" th:value="${tempClient.id}"/>

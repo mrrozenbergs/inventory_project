@@ -51,7 +51,9 @@ public class CartController {
     public String getCartData(Model model, HttpServletRequest request){
 
         List<OrderDetails> list = cartService.getOrderItemsList(cartService.getShoppingCart());
+        double total = cartService.getTotal(cartService.getShoppingCart());
 
+        model.addAttribute("total", total);
         model.addAttribute("orderitems", list);
         return "/cart/cart";
     }

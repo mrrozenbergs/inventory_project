@@ -10,14 +10,9 @@
 <div th:replace="/fragments/admin-header :: navbar"/>
 <div class="container">
 
-	<h3>Order Directory</h3>
+	<h3>Orders</h3>
 	<hr>
 
-	<!-- Add a button -->
-	<a th:href="@{/products/showFormForAdd}"
-		class="btn btn-primary btn-sm mb-3">
-		New Order
-	</a>
 	
 	
 	<table class="table table-bordered table-striped">
@@ -25,38 +20,34 @@
 			<tr>
 				<th> ID </th>
 				<th>Date</th>
-				<th>Total price</th>
 				<th>Client</th>
-				<th>Order details</th>
+				<th>Total price</th>
 				<th></th>
 
 			</tr>
 		</thead>
 		
 		<tbody>
-			<tr th:each="tempOrder : ${orderEntries}">
+			<tr th:each="tempOrder : ${orders}">
 
 				<td th:text="${tempOrder.id}" />
-				<td th:text="${tempOrder.date}" />g
+				<td th:text="${tempOrder.date}" />
+				<td th:text="${tempOrder.client.companyName}" />
 				<td th:text="${tempOrder.totalPrice}" />
-				<td th:text="${tempOrder.orderEntries}" />
-				<td th:text="${tempOrder.client}" />
 				
 				<td>
 				<div class="row">
 				
 					<div class="col-small">
-					<!-- Add "update" button/link -->
-					<form action="#" th:action="@{/orders/showFormForUpdate}" method="POST">
+					<form action="#" th:action="@{/orders/showOrderDetail}" method="POST">
 					
-						<input type="hidden" name="productId" th:value="${tempOrder.id}" />
-						<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
+						<input type="hidden" name="order-id" th:value="${tempOrder.id}" />
+						<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">View Details</button>
 
 					</form>
 					</div>
 					
 					<div class="col-small">
-					<!-- Add "delete" button/link -->					
 					<form action="#" th:action="@{/orders/delete}" method="POST">
 					
 						<input type="hidden" name="productId" th:value="${tempOrder.id}" />

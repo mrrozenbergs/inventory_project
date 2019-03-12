@@ -16,8 +16,6 @@ public class Cart {
 
     private List<OrderDetails> orderDetailsList;
 
-    private List<Product> productList;
-
     private int numberOfItems;
 
     private double total;
@@ -91,10 +89,5 @@ public class Cart {
     public int getCartSize() {
         return productMap.size();
     }
-
-    public boolean containsKey(Integer productId) {
-        return productMap.containsKey(productId);
-    }
-
 
 }

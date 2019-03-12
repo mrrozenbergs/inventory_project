@@ -12,15 +12,12 @@
 
 <div class="container">
 
-    <h3>Product Directory</h3>
-    <hr>
 
     <p class="h4 mb-4">Save Product</p>
 
     <form action="#" th:action="@{/products/save}"
           th:object="${product}" method="POST">
 
-        <!-- Add hidden form field to handle update -->
         <input type="hidden" th:field="*{id}"/>
 
         <input type="text" th:field="*{productName}"
@@ -29,10 +26,10 @@
         <input type="text" th:field="*{eanNumber}"
                class="form-control mb-4 col-4" placeholder="EAN Number">
 
-        <input type="text" th:field="*{inStock}"
+        <input type="number" th:field="*{inStock}"
                class="form-control mb-4 col-4" placeholder="Pcs in Stock">
 
-        <input type="text" th:field="*{price}"
+        <input type="number" th:field="*{price}"
                class="form-control mb-4 col-4" placeholder="Price">
 
         <button type="submit" class="btn btn-info col-2">Save</button>

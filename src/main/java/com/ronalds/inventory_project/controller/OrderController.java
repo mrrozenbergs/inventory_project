@@ -1,23 +1,17 @@
 package com.ronalds.inventory_project.controller;
 
 import com.ronalds.inventory_project.entity.*;
+import com.ronalds.inventory_project.error.NotEnoughProductsInStockException;
 import com.ronalds.inventory_project.service.*;
-import com.sun.rowset.internal.Row;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/orders")
@@ -26,20 +20,16 @@ public class OrderController {
 
     private ProductService productService;
 
-    private ClientService clientService;
-
     private UserService userService;
 
     private OrderService orderService;
-
 
     @Autowired
     private CartService cartService;
 
 
-    public OrderController(ProductService productService, ClientService clientService, OrderService orderService, CartService cartService, UserService userService) {
+    public OrderController(ProductService productService, OrderService orderService, CartService cartService, UserService userService) {
         this.productService = productService;
-        this.clientService = clientService;
         this.orderService = orderService;
         this.cartService = cartService;
         this.userService = userService;
@@ -48,11 +38,11 @@ public class OrderController {
     @GetMapping("/list")
     public String listOfOrders(Model model) {
 
-        List<Product> products = productService.findAll();
+        List<Order> orders = orderService.findAllOrders();
 
-        model.addAttribute("product", products);
+        model.addAttribute("orders", orders);
 
-        return "/products/list-products";
+        return "/orders/list-orders";
     }
 
     @GetMapping("/orderlist")
@@ -77,18 +67,36 @@ public class OrderController {
         return "/orders/order-form";
     }
 
+    @PostMapping("showOrderDetail")
+    public String showOrderDetail(@RequestParam("order-id") int Id, Model model){
+
+        Order order = orderService.findOrderById(Id);
+
+        List<OrderDetails> orderdetails = order.getOrderEntries();
+
+        model.addAttribute("order", order);
+        model.addAttribute("orderdetails", orderdetails);
+
+        return "/orders/details";
+    }
+
 
     @PostMapping("/create")
     public String saveOrder(Model model, CartService cartService, HttpServletRequest request, Principal principal) {
 
-        orderService.saveOrder(cartService, request, principal);
+        try {
+            orderService.saveOrder(cartService, request, principal);
+        } catch (NotEnoughProductsInStockException e) {
+            e.printStackTrace();
+            return "redirect:/notEnoughProducts";
+        }
 
-        return "redirect:/orders/add_order";
+        return "redirect:/orders/orderlist";
     }
 
 
     @PostMapping("/delete")
-    public String delete(@RequestParam("orderId") int Id) {
+    public String delete(@RequestParam("order-id") int Id) {
 
         orderService.removeOrder(Id);
 

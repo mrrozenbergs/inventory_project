@@ -1,6 +1,8 @@
 package com.ronalds.inventory_project.controller;
 
+import com.ronalds.inventory_project.dao.RoleRepository;
 import com.ronalds.inventory_project.entity.Client;
+import com.ronalds.inventory_project.entity.Role;
 import com.ronalds.inventory_project.entity.User;
 import com.ronalds.inventory_project.service.ClientService;
 import com.ronalds.inventory_project.service.UserService;
@@ -18,9 +20,12 @@ public class UserController {
 
     private ClientService clientService;
 
-    public UserController(UserService userService, ClientService clientService) {
+    private RoleRepository roleRepository;
+
+    public UserController(UserService userService, ClientService clientService, RoleRepository roleRepository) {
         this.userService = userService;
         this.clientService = clientService;
+        this.roleRepository = roleRepository;
     }
 
     @PostMapping("/list")
@@ -42,6 +47,9 @@ public class UserController {
         User user = new User();
         user.setClient(client);
 
+        List<Role> roles = roleRepository.findAll();
+
+        model.addAttribute("roles", roles);
         model.addAttribute("clientList", list);
         model.addAttribute("user", user);
         model.addAttribute("client", client);

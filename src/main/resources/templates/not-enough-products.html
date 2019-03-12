@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>Not enough products in stock!</h1>
+        <div th:inline="text"> Please change Your orders product quantity according to pieces in stock!
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
