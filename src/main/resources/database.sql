@@ -33,9 +33,9 @@ VALUES ('2', 'Rimi', '6711111', '22233311');
 
 INSERT INTO CLIENT_USERS (client_id, user_id)
 VALUES (1, 1);
-INSERT INTO USER_ROLE (client_id, user_id)
+INSERT INTO CLIENT_USERS (client_id, user_id)
 VALUES (1, 2);
-INSERT INTO USER_ROLE (client_id, user_id)
+INSERT INTO CLIENT_USERS (client_id, user_id)
 VALUES (2, 3);
 
 INSERT INTO PRODUCT (product_id, eannumber, instock, price, productname)

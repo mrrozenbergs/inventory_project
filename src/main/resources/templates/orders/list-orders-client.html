@@ -32,7 +32,20 @@
 
 				<td th:text="${tempOrder.id}" />
 				<td th:text="${tempOrder.date}" />
-				<td th:text="${tempOrder.orderEntries}" />
+				<td> <table class="table table-sm">
+					<thead>
+					<tr>
+						<th> ID </th>
+						<th>Product</th>
+						<th>Quantity</th>
+					</tr>
+					</thead>
+					<tr th:each="temp : ${tempOrder.orderEntries}">
+					<td th:text="${temp.id}" />
+					<td th:text="${temp.product.productName}" />
+					<td th:text="${temp.quantity}" />
+				</table>
+					</td>
 				<td th:text="${tempOrder.totalPrice}" />
 
 			</tr>
