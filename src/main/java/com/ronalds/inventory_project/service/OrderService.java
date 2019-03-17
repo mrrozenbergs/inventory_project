@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface OrderService  {
 
-    public List<Order> findAllOrders();
+    List<Order> findAllOrders();
 
-    public Order findOrderById(int Id);
+    Order findOrderById(int Id);
 
-    public Order saveOrder(CartService cartService, HttpServletRequest request, Principal principal) throws NotEnoughProductsInStockException;
+    Order saveOrder(CartService cartService, HttpServletRequest request, Principal principal) throws NotEnoughProductsInStockException;
 
-    public void removeOrder(int Id);
+    void removeOrder(int Id);
 
 }

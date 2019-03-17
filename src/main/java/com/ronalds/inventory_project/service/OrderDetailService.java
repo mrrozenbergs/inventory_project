@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface OrderDetailService {
 
-    public List<OrderDetails> findAllOrders();
+    List<OrderDetails> findAllOrders();
 
-    public OrderDetails findOrderDetailsById(int Id);
+    OrderDetails findOrderDetailsById(int Id);
 
-    public OrderDetails saveOrderEntry(OrderDetails orderDetails);
+    OrderDetails saveOrderEntry(OrderDetails orderDetails);
 
-    public void removeOrderDetails(int Id);
+    void removeOrderDetails(int Id);
 }

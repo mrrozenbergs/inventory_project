@@ -1,7 +1,7 @@
 package com.ronalds.inventory_project.error;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @Component
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(MyAccessDeniedHandler.class);
+    protected Log logger = LogFactory.getLog(MyAccessDeniedHandler.class);
 
     @Override
     public void handle(HttpServletRequest httpServletRequest,

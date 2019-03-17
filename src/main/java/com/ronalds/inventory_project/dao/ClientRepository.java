@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
-	public List<Client> findAllByOrderById();
+	List<Client> findAllByOrderById();
 }
