@@ -39,20 +39,6 @@ public class ProductServiceImpl implements ProductService {
 
         return product;
     }
-// TODO
-//    @Override
-//    public Product addToStock(int Id, int number) {
-//        Product productById = findProductById(Id);
-//        productById.setInStock(number);
-//        return productById;
-//    }
-//TODO
-//    @Override
-//    public Product deleteFromStock(int Id, int number) {
-//        Product productById = findProductById(Id);
-//        productById.setInStock(number);
-//        return productById;
-//    }
 
     @Override
     public void saveProduct(Product product) {

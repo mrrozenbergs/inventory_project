@@ -5,11 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 public class SessionUtils {
 
 	@SuppressWarnings("unchecked")
-	public static <T> T createSession(HttpServletRequest request) {
-		return (T) request.getSession();
-	}
-
-	@SuppressWarnings("unchecked")
 	public static <T> T getSessionVariables(HttpServletRequest request, String value) {
 		return (T) request.getSession().getAttribute(value);
 	}

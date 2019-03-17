@@ -10,10 +10,6 @@ public interface ProductService {
 
     Product findProductById(int Id);
 
-//    public Product addToStock(int Id, int number);
-//
-//    public Product deleteFromStock(int Id, int number);
-
     void saveProduct(Product product);
 
     void removeProduct(int Id);
